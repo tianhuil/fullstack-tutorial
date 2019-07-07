@@ -41,5 +41,48 @@ module.exports = {
         ? mission.missionPatchSmall
         : mission.missionPatchLarge;
     }
+  },
+  Mutation: {
+    login: async(_, { email }, { dataSources }) => {
+      const user = await dataSources.userAPI.findOrCreateUser({ email });
+      if (user) return Buffer.from(email).toString('base64')
+    },
+    bookTrips: async(_, { launchIds }, { dataSources }) => {
+      const results = await dataSources.userAPI.bookTrips({ launchIds })
+      const launches = await dataSources.launchAPI.getLaunchesByIds({
+        launchIds
+      })
+
+      const success = results && results.length === launchIds.length
+      const unbookedTrips = launchIds.filter(
+        id => !results.includes(id),
+      )
+
+      return {
+        success,
+        message: success
+          ? 'trips booked successfully'
+          : `the following launches couldn't be booked: ${unbookedTrips}`,
+        launches
+      }
+    },
+    cancelTrip: async(_, { launchId }, { dataSources }) => {
+      const result = await dataSources.userAPI.cancelTrip({ launchId });
+
+      if (!result) {
+        return {
+          success: false,
+          message: `failed to cancel trip with launchID ${launchID}`,
+        }
+      }
+
+      const launch = await dataSources.launchAPI.getLaunchByID({ launchId })
+      
+      return {
+        success: true,
+        message: 'trip cancelled',
+        launches: [launch],
+      }
+    }
   }
 }
