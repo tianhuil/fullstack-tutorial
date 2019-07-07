@@ -35,7 +35,7 @@ type User {
 
 type Mission {
   name: String
-  missionPatch(size: PatchSize): String
+  missionPatch(mission: String, size: PatchSize): String
 }
 
 enum PatchSize {
@@ -58,6 +58,7 @@ type TripUpdateResponse {
   message: String
   launches: [Launch]
 }
+
 `;
 
 module.exports = typeDefs;
