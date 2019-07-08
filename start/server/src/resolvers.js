@@ -19,7 +19,7 @@ module.exports = {
       }
     },
     launch: (_, { id }, { dataSources }) =>
-      dataSources.launchAPI.getLaunchByID({ launchId: id}),
+      dataSources.launchAPI.getLaunchById({ launchId: id}),
     me: (_, __, { dataSources }) => dataSources.userAPI.findOrCreateUser(),
   },
   Launch: {
@@ -76,7 +76,7 @@ module.exports = {
         }
       }
 
-      const launch = await dataSources.launchAPI.getLaunchByID({ launchId })
+      const launch = await dataSources.launchAPI.getLaunchById({ launchId })
       
       return {
         success: true,
