@@ -7,19 +7,19 @@ import { ReactComponent as ExitIcon } from '../assets/icons/exit.svg';
 
 export default function LogoutButton() {
   return (
-    <ApolloConsumer>
-      {client => (
-        <StyledButton
-          onClick={() => {
-            client.writeData({ data: { isLoggedIn: false } });
-            localStorage.clear();
-          }}
-        >
-          <ExitIcon />
-          Logout
-        </StyledButton>
-      )}
-    </ApolloConsumer>
+    // <ApolloConsumer>
+    //   {client => (
+    //     <StyledButton
+    //       onClick={() => {
+    //         client.writeData({ data: { isLoggedIn: false } });
+    //         localStorage.clear();
+    //       }}
+    //     >
+    //       <ExitIcon />
+    //       Logout
+    //     </StyledButton>
+    //   )}
+    // </ApolloConsumer>
   );
 }
 
